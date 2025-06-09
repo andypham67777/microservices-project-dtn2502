@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk
 
 # Thông tin tác giả
-LABEL authors="hungnv"
+LABEL authors="ethanpham"
 
 # Tạo thư mục làm việc trong container
 WORKDIR /app

@@ -4,6 +4,11 @@ DROP DATABASE IF EXISTS microservice;
 CREATE DATABASE IF NOT EXISTS microservice;
 USE microservice;
 
+-- Cho phép kết nối từ bất kỳ host nào
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
 -- Create table department
 DROP TABLE IF EXISTS department;
 CREATE TABLE IF NOT EXISTS department (
