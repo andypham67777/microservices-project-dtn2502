@@ -16,6 +16,17 @@ services:
     networks:
       - spring-microservice
 
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-microservice
+
   account-service:
     build:
       context: ./account-service
@@ -52,16 +63,38 @@ services:
       SPRING_DATASOURCE_PASSWORD: admin@111
       SPRING_APPLICATION_NAME: department-service
 
-  eureka-server:
-    container_name: eureka-server
+  auth-service:
+    container_name: auth-service
     build:
-      context: ./eureka-server
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+      - eureka-server
+    networks:
+      - spring-microservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/microservice?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimeZone=UTC
+      SPRING_DATASOURCE_USERNAME: ethan
+      SPRING_DATASOURCE_PASSWORD: admin@111
+      SPRING_APPLICATION_NAME: auth-service
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "8761:8761"
+      - "8762:8762"
+    depends_on:
+      - eureka-server
     networks:
       - spring-microservice
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
 
 
 networks:

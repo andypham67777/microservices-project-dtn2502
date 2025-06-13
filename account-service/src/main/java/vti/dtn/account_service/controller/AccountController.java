@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1/accounts")
 public class AccountController {
+    // gọi services để xử lý logic
     private final AccountService accountService;
 
     @GetMapping

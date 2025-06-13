@@ -15,3 +15,4 @@ EXPOSE 8081
 
 # Câu lệnh để chạy ứng dụng
 ENTRYPOINT ["java", "-jar", "/app/account-service-0.0.1-SNAPSHOT.jar"]
+

@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
+    // xử lý nghiệp vụ thực tế
     private final AccountRepository accountRepository;
 
     @Override
